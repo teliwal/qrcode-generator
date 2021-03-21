@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Generateur de QR Code</title>
+
+    <script>
+        function showForm(value) {
+            let textRequestForm = document.getElementById("textRequestForm");
+            let urlRequestForm = document.getElementById("urlRequestForm");
+            let vcardRequestForm = document.getElementById("vcardRequestForm");
+            let appRequestForm = document.getElementById("appRequestForm");
+            textRequestForm.style.display = "none"
+            urlRequestForm.style.display = "none"
+            vcardRequestForm.style.display = "none"
+            appRequestForm.style.display = "none"
+            if (value === "Text") {
+                textRequestForm.style.display = "block"
+            }
+            if (value === "Url") {
+                urlRequestForm.style.display = "block"
+            }
+            if (value === "Vcard") {
+                vcardRequestForm.style.display = "block"
+            }
+            if (value === "App") {
+                appRequestForm.style.display = "block"
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:style="'width:100%'">
+    <turbo-frame id="qr_code_response_frame">
+    <div th:id="request" th:style="'width:70%;float:left'">
+        <form action="#" th:action="@{/generateQrCode}" th:object="${qrCodeRequest}" th:method="post">
+            <input type="radio" th:text="Text" th:field="*{type}"
+                   th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).TEXT}"
+                   th:checked="true" th:onclick="showForm('Text')"/>
+            <input type="radio" th:text="URL" th:field="*{type}"
+                   th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).URL}"
+                   th:checked="false" th:onclick="showForm('Url')"/>
+            <input type="radio" th:text="Vcard" th:field="*{type}"
+                   th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).VCARD}"
+                   th:checked="false" th:onclick="showForm('Vcard')"/>
+            <input type="radio" th:text="App" th:field="*{type}"
+                   th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).APP}"
+                   th:checked="false" th:onclick="showForm('App')"/>
+            <br/> <br/>
+            <div th:id="textRequestForm">
+                <div th:replace="fragments/textRequest :: textRequestFragment(${qrCodeRequest.textQrCodeRequest})"></div>
+            </div>
+            <div th:id="urlRequestForm" th:style="'display:none'">
+                <div th:replace="fragments/urlRequest :: urlRequestFragment(${qrCodeRequest.textQrCodeRequest})"></div>
+            </div>
+            <div th:id="vcardRequestForm" th:style="'display:none'">
+                <div th:replace="fragments/vcardRequest :: vcardRequestFragment(${qrCodeRequest.vcardQrCodeRequest})"></div>
+            </div>
+            <div th:id="appRequestForm" th:style="'display:none'">
+                <div th:replace="fragments/appRequest :: appRequestFragment(${qrCodeRequest.appQrCodeRequest})"></div>
+            </div>
+            <br/> <br/>
+            <input th:type="submit" th:value="Submit"/>
+        </form>
+    </div>
+    <br/>
+    <br/>
+    <div th:id="response" th:style="'width:30%;float:right'">
+            <div th:replace="~{fragments/qrCodeResponse :: qrCodeResponseFragment(${qrCodeResponse})}"></div>
+    </div>
+    </turbo-frame>
+</div>
+<script src="js/index.js" type="module" async defer></script>
+</body>
+</html>
