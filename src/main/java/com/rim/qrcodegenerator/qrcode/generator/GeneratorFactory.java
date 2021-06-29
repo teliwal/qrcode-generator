@@ -4,8 +4,6 @@ import com.rim.qrcodegenerator.qrcode.QrCodeGenerationException;
 import com.rim.qrcodegenerator.qrcode.models.QrCodeRequest;
 import com.rim.qrcodegenerator.qrcode.models.RequestType;
 
-import javax.validation.Valid;
-
 public class GeneratorFactory {
 
     public static Generator createGenerator(QrCodeRequest qrCodeRequest){

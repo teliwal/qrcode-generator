@@ -4,27 +4,27 @@
     <table>
         <tr>
             <td><label>Nom : </label></td>
-            <td><input type="text" th:field="*{vcardQrCodeRequest.nom}"/></td>
+            <td><input th:id="vcardRequestNom" type="text" th:field="*{vcardQrCodeRequest.nom}"/></td>
         </tr>
         <tr>
             <td><label>Prenom : </label></td>
-            <td><input type="text" th:field="*{vcardQrCodeRequest.prenom}"/></td>
+            <td><input th:id="vcardRequestPrenom" type="text" th:field="*{vcardQrCodeRequest.prenom}"/></td>
         </tr>
         <tr>
             <td><label>Telephone </label></td>
-            <td><input type="text" th:field="*{vcardQrCodeRequest.telephone}"/></td>
+            <td><input th:id="vcardRequestTelephone" type="text" th:field="*{vcardQrCodeRequest.telephone}"/></td>
         </tr>
         <tr>
             <td><label>Email : </label></td>
-            <td><input type="text" th:field="*{vcardQrCodeRequest.email}"/></td>
+            <td><input th:id="vcardRequestEmail" type="text" th:field="*{vcardQrCodeRequest.email}"/></td>
         </tr>
         <tr>
             <td><label>Site : </label></td>
-            <td><input type="text" th:field="*{vcardQrCodeRequest.siteInternet}"/></td>
+            <td><input th:id="vcardRequestSite" type="text" th:field="*{vcardQrCodeRequest.siteInternet}"/></td>
         </tr>
         <tr>
             <td><label>Entreprise : </label></td>
-            <td><input type="text" th:field="*{vcardQrCodeRequest.entreprise}"/></td>
+            <td><input th:id="vcardRequestEntrepise" type="text" th:field="*{vcardQrCodeRequest.entreprise}"/></td>
         </tr>
     </table>
 </div>

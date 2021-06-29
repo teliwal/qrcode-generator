@@ -2,6 +2,6 @@
       xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="textRequestFragment(textQrCodeRequest)">
     <label>votre texte : </label>
-    <input type="text" th:field="*{textQrCodeRequest.text}"/>
+    <input th:id="textRequestInput" type="text" th:field="*{textQrCodeRequest.text}" required="true"/>
 </div>
 </html>

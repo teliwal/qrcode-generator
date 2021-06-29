@@ -5,13 +5,10 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.rim.qrcodegenerator.qrcode.QrCodeGenerationException;
-import com.rim.qrcodegenerator.qrcode.models.QrCodeResponse;
 import com.rim.qrcodegenerator.qrcode.models.TextQrCodeRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 
 @Getter

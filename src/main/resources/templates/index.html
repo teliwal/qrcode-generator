@@ -3,49 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Mon Generateur de QR Code</title>
-
+    <script crossorigin="anonymous" src="https://unpkg.com/@hotwired/turbo@7.0.0-beta.4/dist/turbo.es5-umd.js"></script>
     <script>
         function showForm(value) {
-            let textRequestForm = document.getElementById("textRequestForm");
-            let urlRequestForm = document.getElementById("urlRequestForm");
-            let vcardRequestForm = document.getElementById("vcardRequestForm");
-            let appRequestForm = document.getElementById("appRequestForm");
-            textRequestForm.style.display = "none"
-            urlRequestForm.style.display = "none"
-            vcardRequestForm.style.display = "none"
-            appRequestForm.style.display = "none"
-            if (value === "Text") {
-                textRequestForm.style.display = "block"
+            let tabOfFragments = ['textRequestForm','urlRequestForm','vcardRequestForm','appRequestForm'];
+            const inputFields = new Map();
+            inputFields.set('textRequestForm', ['textRequestInput'])
+            inputFields.set('urlRequestForm', ['urlRequestInput'])
+            inputFields.set('vcardRequestForm', ['vcardRequestNom','vcardRequestPrenom', 'vcardRequestTelephone '])
+            inputFields.set('appRequestForm', ['appRequestInput'])
+
+            for (let tabOfFragment of tabOfFragments) {
+                document.getElementById(tabOfFragment).style.display = "none";
             }
-            if (value === "Url") {
-                urlRequestForm.style.display = "block"
+            document.getElementById(value).style.display = "block";
+            for (const [key, values] of inputFields.entries()) {
+                for (let v of values){
+                    document.getElementById(v).required = false;
+                }
             }
-            if (value === "Vcard") {
-                vcardRequestForm.style.display = "block"
-            }
-            if (value === "App") {
-                appRequestForm.style.display = "block"
+            for(let v of inputFields.get(value)){
+                document.getElementById(v).required = true;
             }
         }
     </script>
 </head>
 <body>
 <div th:style="'width:100%'">
-    <turbo-frame id="qr_code_response_frame">
+
     <div th:id="request" th:style="'width:70%;float:left'">
-        <form action="#" th:action="@{/generateQrCode}" th:object="${qrCodeRequest}" th:method="post">
+        <form action="#" th:action="@{/generateQrCode}" th:object="${qrCodeRequest}" th:method="get"
+              data-turbo-frame="qr_code_response_frame" >
             <input type="radio" th:text="Text" th:field="*{type}"
                    th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).TEXT}"
-                   th:checked="true" th:onclick="showForm('Text')"/>
+                   th:checked="true" th:onclick="showForm('textRequestForm')"/>
             <input type="radio" th:text="URL" th:field="*{type}"
                    th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).URL}"
-                   th:checked="false" th:onclick="showForm('Url')"/>
+                   th:checked="false" th:onclick="showForm('urlRequestForm')"/>
             <input type="radio" th:text="Vcard" th:field="*{type}"
                    th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).VCARD}"
-                   th:checked="false" th:onclick="showForm('Vcard')"/>
+                   th:checked="false" th:onclick="showForm('vcardRequestForm')"/>
             <input type="radio" th:text="App" th:field="*{type}"
                    th:value="${T(com.rim.qrcodegenerator.qrcode.models.RequestType).APP}"
-                   th:checked="false" th:onclick="showForm('App')"/>
+                   th:checked="false" th:onclick="showForm('appRequestForm')"/>
             <br/> <br/>
             <div th:id="textRequestForm">
                 <div th:replace="fragments/textRequest :: textRequestFragment(${qrCodeRequest.textQrCodeRequest})"></div>
@@ -66,10 +66,11 @@
     <br/>
     <br/>
     <div th:id="response" th:style="'width:30%;float:right'">
-            <div th:replace="~{fragments/qrCodeResponse :: qrCodeResponseFragment(${qrCodeResponse})}"></div>
+        <turbo-frame id="qr_code_response_frame">
+            <!-- la qrcode apparaitra ici -->
+        </turbo-frame>
     </div>
-    </turbo-frame>
 </div>
-<script src="js/index.js" type="module" async defer></script>
+
 </body>
 </html>

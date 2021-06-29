@@ -2,6 +2,6 @@
       xmlns:th="http://www.thymeleaf.org">
     <div th:fragment="urlRequestFragment(urlQrCodeRequest)">
         <label>votre url : </label>
-        <input type="text" th:field="*{urlQrCodeRequest.url}"/>
+        <input th:id="urlRequestInput" type="text" th:field="*{urlQrCodeRequest.url}"/>
     </div>
 </html>

@@ -3,8 +3,6 @@ package com.rim.qrcodegenerator.qrcode.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.Valid;
-
 @Getter @Setter
 public class QrCodeRequest {
 

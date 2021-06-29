@@ -2,6 +2,6 @@
       xmlns:th="http://www.thymeleaf.org">
     <div th:fragment="appRequestFragment(appQrCodeRequest)">
         <label>Votre App: </label>
-        <input type="text" th:field="*{appQrCodeRequest.appUrl}"/>
+        <input th:id="appRequestInput" type="text" th:field="*{appQrCodeRequest.appUrl}" />
     </div>
 </html>

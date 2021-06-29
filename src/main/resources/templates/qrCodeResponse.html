@@ -1,10 +1,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="qrCodeResponseFragment(qrCodeResponse)">
+<body>
+<turbo-frame id="qr_code_response_frame">
     <div th:if="*{qrCodeResponse.isGenerated()}">
         <img th:src="'data:image/jpeg;base64,' + ${qrCodeResponse.image}">
         <br/>
         <a th:download="filename.jpg" th:href="'data:image/jpeg;base64,' + ${qrCodeResponse.image} ">Telecharger</a>
     </div>
-</div>
+</turbo-frame>
+</body>
 </html>
